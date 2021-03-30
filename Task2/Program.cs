@@ -9,57 +9,30 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            StringBuilder firstTask = new StringBuilder("1Hello36273447W6or67ldHow76AreYou23");
+            const char firstSymbol = 'f';
+            const char secondSymbol = 'a';
 
-            DeleteNumbers(ref firstTask);
-            Console.WriteLine(firstTask);
+            StringBuilder testString = new StringBuilder("adffgaduifad,mkalpka");
 
-            StringBuilder secondTask = new StringBuilder("OMGGG!!!!!!!aaattttkkkklaaaa");
+            InsertSymbolAfterSymbol(testString, firstSymbol, secondSymbol);
+            Console.WriteLine($"Новая строка {testString}");
 
-            DeleteLongestRecurringChar(ref secondTask);
-            Console.WriteLine(secondTask);
+            testString = new StringBuilder("hellohelkoplehelnhdhel");
+            string substring = "hel";
+
+            DoubleSubstring(testString, substring);
+            Console.WriteLine($"Новая строка {testString}");
+
         }
 
-        static private void DeleteNumbers(ref StringBuilder stringBuilder)
+        static private void InsertSymbolAfterSymbol(StringBuilder stringBuilder, char insertSymbol, char symbol)
         {
-            for (int i = 0; i < stringBuilder.Length; i++)
-            {
-                if (Char.IsDigit(stringBuilder[i]))
-                {
-                    stringBuilder.Remove(i, 1);
-                    i--;
-                }
-            }
+            stringBuilder.Replace(symbol.ToString(), symbol.ToString() + insertSymbol.ToString());
         }
 
-        static private void DeleteLongestRecurringChar(ref StringBuilder stringBuilder)
+        static private void DoubleSubstring(StringBuilder stringBuilder, string substring)
         {
-            char longestChar = stringBuilder[0];
-
-            int maxRepeat = 1;
-            int repeat = 0;
-            int finiteIndex = 0;
-
-            for (int i = 0; i < stringBuilder.Length - 1; i++)
-            {
-                if(stringBuilder[i] == stringBuilder[i + 1])
-                {
-                    repeat++;
-
-                }
-                else
-                {
-                    if(repeat > maxRepeat)
-                    {
-                        longestChar = stringBuilder[i];
-                        finiteIndex = i;
-                        maxRepeat = repeat;
-                    }
-                    repeat = 1;
-                }
-            }
-
-            stringBuilder.Remove(finiteIndex - maxRepeat + 1, maxRepeat);
+            stringBuilder.Replace(substring, substring + substring);
         }
     }
 }

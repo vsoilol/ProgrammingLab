@@ -1,34 +1,72 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Task1
 {
     class Program
     {
-        const char Colon = ':';
+        
 
         static void Main(string[] args)
         {
-            string testString = "Hello:ufhy7ergferf:eryfgeryuifn:Bye";
+            const char firstSymbol = 'f';
+            const char secondSymbol = 'a';
+
+            string testString = "aoooaoooallfhhhgfff";
 
             Console.WriteLine($"Исходная строка {testString}");
 
-            Console.WriteLine($"Строка до первого двоеточия: {TakeBeforeColon(testString)}");
+            Console.WriteLine($"Сумма всех вхождений символов '{firstSymbol}' и '{secondSymbol}': {GetSumSymbolsOccurrences(testString, firstSymbol, secondSymbol)}");
 
-            Console.WriteLine($"Строка после последнего двоеточия: {TakeAfterColon(testString)}");
+            var result = GetHighestOccurrence(testString, firstSymbol, secondSymbol);
+
+            Console.WriteLine($"Наибольшее вхождение '{result.symbol}' составляет {result.occurrence}");
         }
 
-        static private string TakeBeforeColon(string text)
+        static private int GetSumSymbolsOccurrences(string text, char firstSymbol, char secondSymbol)
         {
-            int firstIndexColon = text.IndexOf(Colon);
+            int firstSymbolOccurrences = 0;
+            int secondSymbolOccurrences = 0;
 
-            return text.Substring(0, firstIndexColon);
+            foreach (var symbol in text)
+            {
+                if(firstSymbol == symbol)
+                {
+                    firstSymbolOccurrences++;
+                }
+                else if(secondSymbol == symbol)
+                {
+                    secondSymbolOccurrences++;
+                }
+            }
+
+            return firstSymbolOccurrences + secondSymbolOccurrences;
         }
 
-        static private string TakeAfterColon(string text)
+        static private (char symbol, int occurrence) GetHighestOccurrence(string text, char firstSymbol, char secondSymbol)
         {
-            int lastIndexColon = text.LastIndexOf(Colon);
+            int firstSymbolOccurrences = 0;
+            int secondSymbolOccurrences = 0;
 
-            return text.Remove(0, lastIndexColon + 1);
+            foreach (var symbol in text)
+            {
+                if (firstSymbol == symbol)
+                {
+                    firstSymbolOccurrences++;
+                }
+                else if (secondSymbol == symbol)
+                {
+                    secondSymbolOccurrences++;
+                }
+            }
+
+            if(secondSymbolOccurrences > firstSymbolOccurrences)
+            {
+                return (secondSymbol, secondSymbolOccurrences);
+            }
+
+            return (firstSymbol, firstSymbolOccurrences);
         }
     }
 }

@@ -8,29 +8,61 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            string testString = "Привет, это очень интересный проект. Если хочешь узнать, что там проста запусти проект";
+            string testString = "Привет1, это очень интересный проект. Если хочешь узнать2, что там проста запусти проект";
+            int quantityLettersWord = 6;
 
             Console.WriteLine($"Исходная строка: {testString}");
 
-            Console.WriteLine($"\nВ алфавитном порядке:\n{AlphabeticalOrder(testString)}");
+            Console.WriteLine($"\nСлова в которых букв меньше либо равно {quantityLettersWord}:\n{DeleteLongWOrd(testString, quantityLettersWord)}");
 
-            Console.WriteLine($"\nСортировка по самому длинному слову:\n{LongestOrder(testString)}");
+            Console.WriteLine($"\nСлова которые содержат числа:\n{ReturnWordWithNumber(testString)}");
         }
 
-        static private string AlphabeticalOrder(string text)
+        static private string DeleteLongWOrd(string text, int quantityLettersWord)
         {
             char[] div = { ' ', ',', '.', ':', '!', '?', ';', ';', '-' };
             List<string> words = text.Split(div, StringSplitOptions.RemoveEmptyEntries).ToList();
-            words.Sort();
+
+            for (int i = 0; i < words.Count; i++)
+            {
+                if(words[i].Length > quantityLettersWord)
+                {
+                    words.RemoveAt(i);
+                    i--;
+                }
+            }
+
             return string.Join(" | ", words);
         }
 
-        static private string LongestOrder(string text)
+        static private string ReturnWordWithNumber(string text)
         {
             char[] div = { ' ', ',', '.', ':', '!', '?', ';', ';', '-' };
             List<string> words = text.Split(div, StringSplitOptions.RemoveEmptyEntries).ToList();
-            //words.OrderBy(word => word.Length);
-            return string.Join(" | ", words.OrderBy(word => word.Length));
+
+            for (int i = 0; i < words.Count; i++)
+            {
+                if (!IsWordWithNumber(words[i]))
+                {
+                    words.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            return string.Join(" | ", words);
+        }
+
+        static private bool IsWordWithNumber(string word)
+        {
+            foreach (var letter in word)
+            {
+                if (char.IsDigit(letter))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
