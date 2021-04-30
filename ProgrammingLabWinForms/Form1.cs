@@ -53,7 +53,7 @@ namespace ProgrammingLabWinForms
 
         private void AssignValue(int numberArray)
         {
-            if (!double.TryParse(textBoxesDegree[numberArray].Text, out degrees[numberArray]))
+            if (!double.TryParse(textBoxesDegree[numberArray].Text, out degrees[numberArray]) && !string.IsNullOrWhiteSpace(textBoxesDegree[numberArray].Text))
             {
                 ShowError(IncorrectValue);
                 textBoxesDegree[numberArray].Text = string.Empty;
